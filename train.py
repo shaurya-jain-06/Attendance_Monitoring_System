@@ -48,16 +48,16 @@ for face_names in os.listdir(face_data):
         face = cv2.resize(face, required_shape)
         face_d = np.expand_dims(face, axis=0)
         encode = face_encoder.predict(face_d)[0]
-        
+        encode = l2_normalizer.transform(encode.reshape(1, -1))[0]
         encodes.append(encode)
 
-        encode = np.sum(encodes, axis=0 )
+    encode = np.sum(encodes, axis=0 )
         
-        encode = l2_normalizer.transform(np.expand_dims(encode, axis=0))[0]
+    encode = l2_normalizer.transform(np.expand_dims(encode, axis=0))[0]
         
-    encoding_dict[face_names] = encodes
+    encoding_dict[face_names] = encode
 print(encoding_dict)  
-path = 'encodings.pkl'
+path = 'encodings/encodings.pkl'
 with open(path, 'wb') as file:
     pickle.dump(encoding_dict, file)
 print("Training Done")
