@@ -51,9 +51,9 @@ for face_names in os.listdir(face_data):
         
         encodes.append(encode)
 
-        #encode = np.sum(encodes, axis=0 )
+        encode = np.sum(encodes, axis=0 )
         
-        #encode = l2_normalizer.transform(np.expand_dims(encode, axis=0))[0]
+        encode = l2_normalizer.transform(np.expand_dims(encode, axis=0))[0]
         
     encoding_dict[face_names] = encodes
 print(encoding_dict)  
